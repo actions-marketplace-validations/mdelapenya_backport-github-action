@@ -6,12 +6,18 @@ import { Inputs } from './index';
 import { consoleLog } from './logger';
 
 async function getProjectConfig(
-  payload: EventPayloads.WebhookPayloadPullRequest
+  payload: EventPayloads.WebhookPayloadPullRequest,
+  inputs: Inputs
 ) {
+  const options = {
+    headers: {
+      Authorization: `token ${inputs.accessToken}`
+    }
+  };
   const configUrl = `https://raw.githubusercontent.com/${payload.repository.owner.login}/${payload.repository.name}/${payload.repository.default_branch}/.backportrc.json`;
   consoleLog(`Fetching project config from ${configUrl}`);
   try {
-    const response = await got(configUrl);
+    const response = await got(configUrl, options);
     return JSON.parse(response.body) as ConfigOptions;
   } catch (e) {
     if (e.response?.statusCode === 404) {
@@ -39,7 +45,7 @@ export async function getBackportConfig({
   inputs: Inputs;
   username: string;
 }): Promise<ConfigOptions & RequiredOptions> {
-  const projectConfig = await getProjectConfig(payload);
+  const projectConfig = await getProjectConfig(payload, inputs);
   const config: ConfigOptions & { accessToken: string } = {
     ...projectConfig,
     upstream: `${payload.repository.owner.login}/${payload.repository.name}`,
