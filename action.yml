@@ -1,5 +1,5 @@
-name: 'Backport Action'
-author: Søren Louv <sorenlouv@gmail.com>
+name: 'Backport Action Reloaded'
+author: Manuel de la Peña <mdelapenya@gmail.com>
 description: 'Backport merged pull requests to other branches via labels'
 inputs:
   access_token:
