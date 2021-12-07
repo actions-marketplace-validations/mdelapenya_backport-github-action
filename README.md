@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Backport
-        uses: sqren/backport-github-action@v1
+        uses: mdelapenya/backport-github-action@v1
         with:
           # Required
           # Token to authenticate requests
