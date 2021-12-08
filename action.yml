@@ -5,6 +5,7 @@ inputs:
   access_token:
     description: 'GITHUB_TOKEN or a `repo` scoped Personal Access Token'
     default: ${{ github.token }}
+    required: true 
   backport_label_pattern:
     description: Backport to branches that matches the label pattern.
     required: false
